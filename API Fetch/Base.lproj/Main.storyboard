@@ -17,11 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X3F-YG-7bs">
-                                <rect key="frame" x="10" y="80" width="370" height="409"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X3F-YG-7bs">
+                                <rect key="frame" x="10" y="57" width="370" height="409"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="409" id="ZMG-cw-uLu"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="409" id="wIc-vj-DB9"/>
                                     <constraint firstAttribute="height" constant="409" id="xTQ-lV-9UA"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eRP-eP-EM8">
@@ -31,7 +32,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="aSz-hA-EIj">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="aSz-hA-EIj" customClass="MyCollectionViewCell" customModule="API_Fetch">
                                         <rect key="frame" x="0.0" y="0.66666666666666663" width="312" height="408"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hx7-jD-wbR">
@@ -72,7 +73,13 @@
                                                 <constraint firstAttribute="bottom" secondItem="Amn-JM-HpT" secondAttribute="bottom" constant="157" id="yYu-WH-VwN"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.76417253519999995" green="0.78039215689999997" blue="0.7363775669" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <size key="customSize" width="312" height="408"/>
+                                        <connections>
+                                            <outlet property="desc" destination="Amn-JM-HpT" id="1Li-Ye-Z9m"/>
+                                            <outlet property="imgview" destination="yzm-Py-Svv" id="dks-gV-JjC"/>
+                                            <outlet property="title" destination="2Ac-3z-AqN" id="Cuj-Ll-Mdn"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -90,10 +97,12 @@
                             <constraint firstItem="X3F-YG-7bs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="ITg-0K-PxH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="X3F-YG-7bs" secondAttribute="trailing" constant="10" id="Jc4-Td-8DW"/>
                             <constraint firstItem="X3F-YG-7bs" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="QJ5-0F-zkl"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="X3F-YG-7bs" secondAttribute="bottom" constant="321" id="af4-7I-6er"/>
                             <constraint firstAttribute="bottom" secondItem="X3F-YG-7bs" secondAttribute="bottom" constant="355" id="hhj-Fw-oog"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="X3F-YG-7bs" id="Anh-rZ-iki"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
