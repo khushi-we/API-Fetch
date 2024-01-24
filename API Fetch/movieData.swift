@@ -30,6 +30,38 @@ struct movie : Codable {
     let vote_average : Double?
     let vote_count : Int?
     
+    init(adult: Bool? = nil,
+             backdrop_path: String? = nil,
+             id: Int? = nil,
+             title: String? = nil,
+             original_language: String? = nil,
+             original_title: String? = nil,
+             overview: String? = nil,
+             poster_path: String? = nil,
+             media_type: String? = nil,
+             genre_ids: [Int]? = nil,
+             popularity: Double? = nil,
+             release_date: String? = nil,
+             video: Bool? = nil,
+             vote_average: Double? = nil,
+             vote_count: Int? = nil) {
+            
+            self.adult = adult
+            self.backdrop_path = backdrop_path
+            self.id = id
+            self.title = title
+            self.original_language = original_language
+            self.original_title = original_title
+            self.overview = overview
+            self.poster_path = poster_path
+            self.media_type = media_type
+            self.genre_ids = genre_ids
+            self.popularity = popularity
+            self.release_date = release_date
+            self.video = video
+            self.vote_average = vote_average
+            self.vote_count = vote_count
+        }
 }
 
 /*

@@ -24,12 +24,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         cell.title.text = moviesinfo[indexPath.row].original_title
         cell.desc.text = moviesinfo[indexPath.row].overview
-        var url = "https://image.tmdb.org/t/p/original"
+        let url = "https://image.tmdb.org/t/p/original"
         
    
         cell.imgview.downloadImage(from: URL(string : url + (moviesinfo[indexPath.row].backdrop_path ?? "/yOm993lsJyPmBodlYjgpPwBjXP9.jpg"))! as URL)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let srcViewController = UIStoryboard(name: "Main", bundle: nil)
+        let destViewController = srcViewController.instantiateViewController(withIdentifier: "DescriptiveViewController") as! DescriptiveViewController
+        destViewController.movieRecieved = moviesinfo[indexPath.row]
+        self.navigationController?.pushViewController(destViewController, animated: true)
     }
     
     func fetchData () {
