@@ -18,6 +18,9 @@
 		CA3531482B5A514400CC0CED /* API_FetchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3531472B5A514400CC0CED /* API_FetchUITestsLaunchTests.swift */; };
 		CA3531552B5A54A700CC0CED /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3531542B5A54A700CC0CED /* MyCollectionViewCell.swift */; };
 		CA5DE9332B60FE2700B6D7B2 /* DescriptiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DE9322B60FE2700B6D7B2 /* DescriptiveViewController.swift */; };
+		CA5DE9352B613E2300B6D7B2 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DE9342B613E2300B6D7B2 /* MyTableViewCell.swift */; };
+		CA5DE9372B62454100B6D7B2 /* MovieSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DE9362B62454100B6D7B2 /* MovieSections.swift */; };
+		CA5DE9392B6267A500B6D7B2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5DE9382B6267A500B6D7B2 /* File.swift */; };
 		CA9245832B5E80340033EB98 /* movieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9245822B5E80340033EB98 /* movieData.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +57,9 @@
 		CA3531472B5A514400CC0CED /* API_FetchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_FetchUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CA3531542B5A54A700CC0CED /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		CA5DE9322B60FE2700B6D7B2 /* DescriptiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptiveViewController.swift; sourceTree = "<group>"; };
+		CA5DE9342B613E2300B6D7B2 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
+		CA5DE9362B62454100B6D7B2 /* MovieSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSections.swift; sourceTree = "<group>"; };
+		CA5DE9382B6267A500B6D7B2 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		CA9245822B5E80340033EB98 /* movieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +121,9 @@
 				CA3531542B5A54A700CC0CED /* MyCollectionViewCell.swift */,
 				CA9245822B5E80340033EB98 /* movieData.swift */,
 				CA5DE9322B60FE2700B6D7B2 /* DescriptiveViewController.swift */,
+				CA5DE9342B613E2300B6D7B2 /* MyTableViewCell.swift */,
+				CA5DE9362B62454100B6D7B2 /* MovieSections.swift */,
+				CA5DE9382B6267A500B6D7B2 /* File.swift */,
 			);
 			path = "API Fetch";
 			sourceTree = "<group>";
@@ -267,11 +276,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA5DE9352B613E2300B6D7B2 /* MyTableViewCell.swift in Sources */,
 				CA3531292B5A513900CC0CED /* ViewController.swift in Sources */,
 				CA9245832B5E80340033EB98 /* movieData.swift in Sources */,
 				CA3531252B5A513900CC0CED /* AppDelegate.swift in Sources */,
 				CA3531552B5A54A700CC0CED /* MyCollectionViewCell.swift in Sources */,
 				CA3531272B5A513900CC0CED /* SceneDelegate.swift in Sources */,
+				CA5DE9372B62454100B6D7B2 /* MovieSections.swift in Sources */,
+				CA5DE9392B6267A500B6D7B2 /* File.swift in Sources */,
 				CA5DE9332B60FE2700B6D7B2 /* DescriptiveViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

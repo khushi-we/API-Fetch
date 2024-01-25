@@ -6,121 +6,81 @@
 //
 
 import UIKit
-import AVFoundation
+var controller = UIViewController()
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    @IBOutlet var collectionView : UICollectionView!
+class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
-   // var movieData : allmovies
-    var moviesinfo = [movie]()
+    @IBOutlet var tableView : UITableView!
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return moviesinfo.count
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 450
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return DataManager.shared.mData.count
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return DataManager.shared.mData[section].sectionType
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MyCollectionViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:"tableViewCell", for: indexPath) as! MyTableViewCell
         
-        cell.title.text = moviesinfo[indexPath.row].original_title
-        cell.desc.text = moviesinfo[indexPath.row].overview
-        let url = "https://image.tmdb.org/t/p/original"
-        
-   
-        cell.imgview.downloadImage(from: URL(string : url + (moviesinfo[indexPath.row].backdrop_path ?? "/yOm993lsJyPmBodlYjgpPwBjXP9.jpg"))! as URL)
-        
+        cell.collectionView.tag = indexPath.section
+        print("table cell")
         return cell
+        
     }
+ 
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let srcViewController = UIStoryboard(name: "Main", bundle: nil)
-        let destViewController = srcViewController.instantiateViewController(withIdentifier: "DescriptiveViewController") as! DescriptiveViewController
-        destViewController.movieRecieved = moviesinfo[indexPath.row]
-        self.navigationController?.pushViewController(destViewController, animated: true)
-    }
-    
-    func fetchData () {
-
+    func fetchData(sectionURL: String, completion: @escaping () -> Void) {
         let headers = ["accept" : "application/json", "Authorization" : "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YTc3ZTA3MGYyZTk4ZTZmMjQ2ZDU0MzliMTU2ZGE5ZCIsInN1YiI6IjY1YTYzZTRkODU3MDJlMDBjN2MzODE3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.04w1KK1EKQP9eVC5bF8X4dk0YxCQf9FTTQ9FlcjggEU"]
-                
-                 var request = URLRequest(url: URL(string: "https://api.themoviedb.org/3/trending/movie/day?language=en-US")! as URL)
-                
-                request.httpMethod = "GET"
-                request.allHTTPHeaderFields = headers
-        let task = URLSession.shared.dataTask(with: request, completionHandler:{
-            (data,response, error) in
-            guard let data = data, error == nil else {
-                print("error : \(String(describing: error))")
-                return
-            }
-            do {
-                let movieData = try JSONDecoder().decode(allmovies.self, from: data)
-                self.moviesinfo = movieData.results
-            }
-            catch {
-                print("Error occurred when decoding JSON Data \(error)")
-            }
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        } )
-        task.resume()
-    }
+         var request = URLRequest(url: URL(string: sectionURL)! as URL)
+         request.httpMethod = "GET"
+         request.allHTTPHeaderFields = headers
+
+         let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+             guard let data = data, error == nil else {
+                 print("error: \(String(describing: error))")
+                 return
+             }
+             do {
+                 let movieData = try JSONDecoder().decode(allmovies.self, from: data)
+                 DataManager.shared.section1data = movieData.results
+                 DataManager.shared.mData = [MovieSections(sectionType: "Trending", data: DataManager.shared.section1data)]
+
+                 // Reload UI on the main thread
+                 DispatchQueue.main.async {
+                     self?.tableView.reloadData()
+                 }
+
+                 // Call the completion handler
+                 completion()
+             } catch {
+                 print("Error occurred when decoding JSON Data \(error)")
+             }
+         }
+         task.resume()
+     }
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        fetchData()
+        fetchData(sectionURL: "https://api.themoviedb.org/3/trending/movie/day?language=en-US") {
+            //this will be executed only when completion handler is invoked
+            print("data fetched\n")
+            print("count of movie is \(DataManager.shared.section1data.count)")
+            controller = self
+        }
         
-        AVCaptureDevice.requestAccess(for: .audio) { granted in
-            if granted
-            {
-                print("Audio Permission Granted")
-            }
-            else
-            {
-                print("Permission not granted")
-            }
-        }
-        AVCaptureDevice.requestAccess(for: .video) { granted in
-            if granted
-            {
-                print("Video Permission Granted")
-            }
-            else
-            {
-                print("Permission not granted")
-            }
-        }
-    }
-
+      }
 
 }
 
 
-extension UIImageView {
-    
-    func downloadImage(from url : URL)
-    {
-        let dataTask = URLSession.shared.dataTask(with: url, completionHandler: {
-            (data,response,error) in
-            guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                  let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                  let data = data, error == nil,
-                  let image = UIImage(data: data)
-            else
-            {
-                print("Not a valid response")
-                return
-            }
-            DispatchQueue.main.async {
-                self.image = image
-            }
-        })
-        dataTask.resume()
-    }
-    
-    
-}
+
