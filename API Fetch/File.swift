@@ -9,7 +9,8 @@ import Foundation
 
 class DataManager {
     static let shared = DataManager()
-    var section1data = [movie]()
+   // var section1data = [movie]()
+  //  var section2data = [movie]()
     var mData = [MovieSections]()
     
     private init() {}

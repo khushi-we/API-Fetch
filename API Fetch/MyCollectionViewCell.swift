@@ -12,4 +12,5 @@ class MyCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imgview : UIImageView!
     @IBOutlet var title : UILabel!
     @IBOutlet var desc : UILabel!
+    
 }
