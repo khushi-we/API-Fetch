@@ -19,6 +19,7 @@ class DescriptiveViewController: UIViewController {
     @IBOutlet var voteCount : UILabel!
     @IBOutlet var voteAvg : UILabel!
     @IBOutlet var shareBtn : UIButton!
+    @IBOutlet var saveBtn : UIButton!
     
     var movieRecieved = movie()
     
@@ -39,6 +40,7 @@ class DescriptiveViewController: UIViewController {
         voteAvg.text = String(movieRecieved.vote_average ?? 0.00) as String
         voteCount.text = String(movieRecieved.vote_count ?? 0) as String
         shareBtn.addTarget(self, action: #selector(tapaction), for: .touchUpInside)
+        saveBtn.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
         
     }
     
@@ -51,6 +53,7 @@ class DescriptiveViewController: UIViewController {
      /*   if let data = try? Data(contentsOf: Imageurl){
             imgToShare = UIImage(data: data)!
         } */
+        
         //asynchronously
         let imageTask = URLSession.shared.dataTask(with: Imageurl, completionHandler: {
             (data,response,error) in
@@ -76,6 +79,15 @@ class DescriptiveViewController: UIViewController {
         })
         imageTask.resume()
        
+    }
+    
+    @objc func saveAction() {
+        
+        Defaults.save(movie : movieRecieved.original_title!)
+        let savedData = Defaults.getSavedData()
+        
+        print(savedData)
+        
     }
 }
 

@@ -67,10 +67,7 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
         }
         task.resume()
     }
-    
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
