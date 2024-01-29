@@ -18,15 +18,17 @@ class DescriptiveViewController: UIViewController {
     @IBOutlet var releaseDate : UILabel!
     @IBOutlet var voteCount : UILabel!
     @IBOutlet var voteAvg : UILabel!
+    @IBOutlet var shareBtn : UIButton!
     
     var movieRecieved = movie()
     
+    let url = "https://image.tmdb.org/t/p/original"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let url = "https://image.tmdb.org/t/p/original"
+       
         imgDvc.downloadImage(from: URL(string : url + (movieRecieved.backdrop_path ?? "/yOm993lsJyPmBodlYjgpPwBjXP9.jpg"))! as URL)
         titleDvc.text = movieRecieved.original_title
         descDvc.text = movieRecieved.overview
@@ -36,10 +38,44 @@ class DescriptiveViewController: UIViewController {
         releaseDate.text = movieRecieved.release_date
         voteAvg.text = String(movieRecieved.vote_average ?? 0.00) as String
         voteCount.text = String(movieRecieved.vote_count ?? 0) as String
-        
+        shareBtn.addTarget(self, action: #selector(tapaction), for: .touchUpInside)
         
     }
     
-
+    @objc func tapaction(){
+        
+        let Imageurl = URL(string : url + (movieRecieved.backdrop_path ?? "/yOm993lsJyPmBodlYjgpPwBjXP9.jpg"))! as URL
+        var imgToShare : UIImage = UIImage()
+        
+        //synchronously
+     /*   if let data = try? Data(contentsOf: Imageurl){
+            imgToShare = UIImage(data: data)!
+        } */
+        //asynchronously
+        let imageTask = URLSession.shared.dataTask(with: Imageurl, completionHandler: {
+            (data,response,error) in
+            guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                  let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                  let data = data, error == nil, let downloadedImage = UIImage(data: data)
+            else
+            {
+                print("Unable to download Image")
+                return
+            }
+            //completion block
+            imgToShare = downloadedImage
+            
+            //UI updates MUST happen on the main thread
+            DispatchQueue.main.async {
+                
+                let textToShare = self.movieRecieved.overview
+                let shareBtnActivityController = UIActivityViewController(activityItems: [imgToShare,textToShare as Any] as [Any], applicationActivities: nil)
+                
+                self.present(shareBtnActivityController, animated: true, completion: nil)
+            }
+        })
+        imageTask.resume()
+       
+    }
 }
 
